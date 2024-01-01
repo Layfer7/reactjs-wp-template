@@ -18,11 +18,11 @@ function loaders(isDev) {
           }
         },
         {
-          test: /\.s[ac]ss$/i,
+          test: /\.css$/i,
           use: [
-            MiniCssExtractPlugin.loader,
+            isDev ? "style-loader": MiniCssExtractPlugin.loader,
             "css-loader",
-            "sass-loader",
+            "postcss-loader",
           ],
         },
         {

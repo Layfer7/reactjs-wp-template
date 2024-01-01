@@ -4,15 +4,16 @@ const plugins = require("./build/plugins");
 const loaders = require("./build/loaders");
 const resolve = require("./build/resolve");
 
-const isDev = process.env.mode !== "production";
 
-module.exports = env => ({
+module.exports = env => {
+    const isDev = env.mode !== "production";
+    return ({
     entry: './src/index.jsx',
     mode: isDev ? "development": "production",
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].[contenthash].js',
-        assetModuleFilename: 'images/[hash][ext][query]',
+        assetModuleFilename: 'images/[name].[ext]',
         clean: true,
     },
     resolve: resolve(env),
@@ -22,4 +23,5 @@ module.exports = env => ({
     plugins: plugins(isDev),
     devtool: isDev ? 'eval-source-map': 'source-map',
     devServer: isDev ? devServer(): undefined,
-});
+    })
+};
